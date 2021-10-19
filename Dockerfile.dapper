@@ -8,7 +8,7 @@ ENV ARCH $DAPPER_HOST_ARCH
 
 RUN yum-config-manager --enable ol7_addons
 
-RUN yum update && \
+RUN yum update -y && \
     yum install -y bash git gcc docker-cli vim less file curl wget ca-certificates
 
 ENV GOLANG_ARCH_amd64=amd64 GOLANG_ARCH_arm=armv6l GOLANG_ARCH_arm64=arm64 GOLANG_ARCH=GOLANG_ARCH_${ARCH} \
