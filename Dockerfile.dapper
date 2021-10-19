@@ -1,10 +1,21 @@
-FROM golang:1.14.7
+# Copyright (C) 2021, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+FROM ghcr.io/oracle/oraclelinux:7-slim
 
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
-RUN apt update && \
-    apt install -y bash git gcc docker.io vim less file curl wget ca-certificates
+RUN yum-config-manager --enable ol7_addons
+
+RUN yum update && \
+    yum install -y bash git gcc docker-cli vim less file curl wget ca-certificates
+
+ENV GOLANG_ARCH_amd64=amd64 GOLANG_ARCH_arm=armv6l GOLANG_ARCH_arm64=arm64 GOLANG_ARCH=GOLANG_ARCH_${ARCH} \
+    GOPATH=/go PATH=/go/bin:/usr/local/go/bin:${PATH} SHELL=/bin/bash
+
+RUN wget --no-verbose -O - https://storage.googleapis.com/golang/go1.14.7.linux-${!GOLANG_ARCH}.tar.gz | tar -xzf - -C /usr/local
+
 RUN if [ "${ARCH}" = "amd64" ]; then \
         curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.30.0; \
     fi
