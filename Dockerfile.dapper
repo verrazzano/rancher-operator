@@ -6,6 +6,11 @@ FROM ghcr.io/oracle/oraclelinux:7-slim
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
+ENV GOPATH /go
+ENV GOBIN ${GOPATH}/bin
+ENV PATH ${GOBIN}:/usr/local/go/bin:${PATH}
+ENV SHELL /bin/bash
+
 RUN yum-config-manager --enable ol7_addons
 
 RUN yum update -y && \
@@ -16,13 +21,6 @@ RUN yum install -y oracle-golang-release-el7 && \
     yum install -y golang-1.16
 
 RUN yum install -y oracle-olcne-release-el7 helm-3.3.4
-
-ENV GOLANG_ARCH_amd64=amd64 GOLANG_ARCH_arm=armv6l GOLANG_ARCH_arm64=arm64 GOLANG_ARCH=GOLANG_ARCH_${ARCH} \
-    GOPATH=/go PATH=/go/bin:/usr/local/go/bin:${PATH} SHELL=/bin/bash
-
-RUN if [ "${ARCH}" = "amd64" ]; then \
-        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.30.0; \
-    fi
 
 ENV DAPPER_ENV REPO TAG DRONE_TAG CROSS
 ENV DAPPER_SOURCE /go/src/github.com/rancher/rancher-operator/
