@@ -3,8 +3,7 @@
 
 FROM ghcr.io/oracle/oraclelinux:7-slim
 
-RUN yum update -y && yum-config-manager --enable ol7_u8_security_validation && \
-    yum update -y openssl-libs
+RUN yum update -y
 
 COPY bin/rancher-operator /usr/bin/
 COPY LICENSE README.md.in THIRD_PARTY_LICENSES.txt SECURITY.md /licenses/
