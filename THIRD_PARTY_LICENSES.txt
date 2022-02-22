@@ -1,5 +1,6 @@
 github.com/rancher/rancher-operator
 -------- Copyrights
+Copyright (c) 2021, Oracle America, Inc. and its affiliates.
 Copyright (c) 2019 [Rancher Labs, Inc.](http://rancher.com)
 Copyright 2021 Rancher Labs, Inc.
 Copyright YEAR Rancher Labs, Inc.
@@ -1949,4 +1950,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 ATTRIBUTION-HELPER-GENERATED:
-License file based on go.mod with md5 sum: e2a1d999eeedd40c6e8996b9fceeab3b
+License file based on go.mod with md5 sum: 6528dce49676a095ff147468d7bd222d
